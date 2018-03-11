@@ -7,8 +7,18 @@ from mysql.newContent import *
 def crawlpengpai(channel=None):
     operate = SqlOperate()
     website='http://www.thepaper.cn'
+    website_id = 4;
     if channel:
         website=website+'/channel_'+str(channel)
+        if channel == 2590:
+            website_id = 6
+        if channel == 2591:
+            website_id = 7
+        if channel == 2592:
+            website_id = 8
+        if channel == 2593:
+            website_id = 9
+
     contextUtil = ContextUtil(website)
     res=contextUtil.get_crawler_noproxy({})
     if res:
@@ -20,7 +30,7 @@ def crawlpengpai(channel=None):
         published_time=selector.xpath('//*[@id="main_lt"]/div[1]/div[2]/div[2]/span[1]')
         ytndxsm=selector.xpath('//*[@id="main_lt"]/div[1]/div[2]/div[2]/span[2]')
         criteria=NewsCriteria()
-        criteria.website_id = 3
+        criteria.website_id = website_id
         criteria.crawl_url = website
         criteria.news_name = toutiao_title[0].text
         criteria.news_url = 'http://www.thepaper.cn/'+toutiao_link
@@ -44,7 +54,7 @@ def crawlpengpai(channel=None):
                 ytndxsm = content.xpath('./div[2]/span[2]')
 
                 criteria=NewsCriteria()
-                criteria.website_id = 3
+                criteria.website_id = website_id
                 criteria.crawl_url = website
                 if toutiao_title and len(toutiao_title)==1:
                    criteria.news_name = toutiao_title[0].text
@@ -64,24 +74,12 @@ def crawlpengpai(channel=None):
                 NewsService.add(criteria,operate.session)
 
 def crawlpengpaivideo():
+    operate = SqlOperate()
     website='http://www.thepaper.cn/channel_26916'
     contextUtil = ContextUtil(website)
     res=contextUtil.get_crawler_noproxy({})
     if res:
         selector = etree.HTML(res.text)
-        videoMain=selector.xpath('//*[@class="video_slide"]/div[1]/div[1]')
-        slide_name=videoMain[0].xpath('./li/div/div[1]')
-        slide_time=videoMain[0].xpath('./li/div/div[2]')
-        totiao_resource=videoMain[0].xpath('./li/div/div[3]/span[1]')
-        published_time=videoMain[0].xpath('./li/div/div[3]/span[2]')
-        ytndxsm=videoMain[0].xpath('./li/div/div[3]/span[3]')
-        print(slide_name[0].text)
-        print(slide_time[0].text)
-        print(totiao_resource[0].text)
-        print(published_time[0].text)
-        if ytndxsm and len(ytndxsm) > 0:
-            print(ytndxsm[0].text)
-        print('---------------------------')
         contents = selector.xpath('//html/body/div[8]/div[3]/li')
 
         if contents and len(contents) > 0:
@@ -91,22 +89,23 @@ def crawlpengpaivideo():
                 toutiao_title = content.xpath('./a/div')
                 toutiao_content = content.xpath('./p')
                 totiao_resource = content.xpath('./div[2]/a')
-                published_time = content.xpath('./div[2]/span[1]')
                 ytndxsm = content.xpath('./div[2]/span[2]')
+                criteria=NewsCriteria()
+                criteria.website_id = 5
+                criteria.crawl_url = website
                 if toutiao_title and len(toutiao_title)==1:
-                    print(toutiao_title[0].text)
-                    print(link[0].attrib['href'])
+                    criteria.news_name=toutiao_title[0].text;
+                    criteria.news_url = 'http://www.thepaper.cn/'+link[0].attrib['href']
                 if toutiao_content and len(toutiao_content)==1:
-                    print(toutiao_content[0].text)
+                    criteria.news_desc=toutiao_content[0].text
                 if totiao_resource and len(totiao_resource)==1:
-                    print(totiao_resource[0].text)
-                if published_time and len(published_time)==1:
-                    print(published_time[0].text)
+                    criteria.news_resource=totiao_resource[0].text
                 if ytndxsm and len(ytndxsm) > 0:
-                    print(ytndxsm[0].text)
-                if slide_time and len(slide_time) > 0:
-                    print(slide_time[0].text)
-                print('---------------------------')
+                    if 'k' in ytndxsm[0].text:
+                       criteria.comment_num = int(ytndxsm[0].text.replace('k',''))*1000
+                    else:
+                        criteria.comment_num = int(ytndxsm[0].text)
+                NewsService.add(criteria,operate.session)
 
 
 
@@ -124,11 +123,9 @@ def crawlurl(url):
 
         return newsinfo
     return None
-#crawlpengpaivideo()
 
-crawlpengpai(25951)
-crawlpengpai(25952)
-crawlpengpai(25953)
+crawlpengpaivideo()
+
 #http://www.thepaper.cn/load_chosen.jsp?nodeids=25949&topCids=1986843,1985260,1986863,1986012,&pageidx=0
 
 #crawlurl('http://www.thepaper.cn/newsDetail_forward_1996369')

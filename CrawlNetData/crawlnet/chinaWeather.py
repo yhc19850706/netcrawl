@@ -8,6 +8,8 @@ import requests
 import xml.etree.cElementTree as ET
 
 def tody_weather(city_name):
+    wxml=Wxml()
+    friend = wxml.find_friend('殷化程')
     website='http://wthrcdn.etouch.cn/WeatherApi?city='+city_name
     res = requests.get(website)
     result={}
@@ -40,12 +42,18 @@ def tody_weather(city_name):
     result['空气质量']=quality[0]
     pm10 = selector.xpath('//pm10/text()')
     result['PM10']=pm10[0]
+    wh=str([result]).replace('\'','').replace(',','\n').replace('[{','').replace('}]','')
+    Wxml.send_txt(friend,str(wh))
+    result={}
     result['指数']=""
     zhishus=selector.xpath('//zhishus/zhishu/name')
     values=selector.xpath('//zhishus/zhishu/value')
     details=selector.xpath('//zhishus/zhishu/detail')
     for zhishu in range(len(zhishus)):
         result[zhishus[zhishu].text] = values[zhishu].text+';'+details[zhishu].text
+    wh=str([result]).replace('\'','').replace(',','\n').replace('[{','').replace('}]','')
+    Wxml.send_txt(friend,str(wh))
+    result={}
     result['近5日天气情况']=""
     weathers=selector.xpath('//forecast/weather')
     dates=selector.xpath('//forecast/weather/date')
@@ -62,11 +70,10 @@ def tody_weather(city_name):
         result[dates[weather].text]= '温度:'+lows[weather].text+'_'+highs[weather].text \
                                      + '__白天天气:'+daytypes[weather].text +'_'+dayfxs[weather].text+dayfls[weather].text\
                                      + '__夜晚天气:'+nighttypes[weather].text +'_'+ nightfxs[weather].text+'_'+nightfls[weather].text
-    wh=str([result]).replace('\'','').replace(',','\n')
-    wxml=Wxml()
-    friend = wxml.find_friend('殷化程')
+    wh=str([result]).replace('\'','').replace(',','\n').replace('[{','').replace('}]','')
+
     Wxml.send_txt(friend,str(wh))
 
-tody_weather('北京')
+tody_weather('杭州')
 
 

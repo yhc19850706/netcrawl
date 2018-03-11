@@ -4,7 +4,7 @@ from mysql.newContent import *
 import requests
 from mysql.SqlOperate import SqlOperate
 
-#时事：25950 财经：2591 思想：2592 生活2593 默认首页
+
 def crawlcaijingfinance():
     website='http://finance.caijing.com.cn/index.html'
     contextUtil = ContextUtil(website)
@@ -67,7 +67,7 @@ def crawlcaijingtech():
                 content=zx.xpath('./p')
                 newsinfo=crawlurl(link)
                 criteria=NewsCriteria()
-                criteria.website_id = 1
+                criteria.website_id = 2
                 criteria.crawl_url = website
                 criteria.news_name = title_name[0].text
                 criteria.news_url = link
@@ -138,6 +138,7 @@ def crawlurl(url):
                     newsinfo['laiyuan']=s.text.replace('来源：',"")
         return newsinfo
     return None
-#crawlcaijingtech()
+
 
 crawlcaijingfinance()
+crawlcaijingtech()

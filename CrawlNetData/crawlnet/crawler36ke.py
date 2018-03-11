@@ -1,6 +1,7 @@
 from pyutils.ContextUtil import ContextUtil
 from  mysql.models import *
 from mysql.SqlOperate import SqlOperate
+from mysql.newContent import *
 import re
 import json
 import time
@@ -16,18 +17,18 @@ def crawlQuickNews():
         if items and len(items)>0:
             operate = SqlOperate()
             for item in items:
-                news = NewsCriteria()
-                news.keItem = '7*24快讯'
-                news.newsName = item['title']
-                news.newsContent = item['description']
-                news.newsLink = item['news_url']
                 resource=re.findall(r'[^（）]+', item['description'])
+                criteria=NewsCriteria()
+                criteria.website_id = 11
+                criteria.crawl_url = 'https://36kr.com/api/newsflash'
+                criteria.news_name = item['title']
+                criteria.news_url = item['news_url']
+                criteria.keywords = item['column']['name']
+                criteria.news_desc=item['description']
+                criteria.publish_time = item['published_at']
                 if resource and len(resource)>1:
-                    news.newsResource = resource[len(resource)-1]
-                news.newsLable = item['column']['name']
-                news.publishedTime = item['published_at']
-                news.newsDate = item['published_at']
-                NewsService.add(news,operate.session)
+                    criteria.news_resource = resource[len(resource)-1]
+                NewsService.add(criteria,operate.session)
 
 def crawlMainPage():
     website='https://36kr.com/api/search-column/mainsite'
@@ -41,15 +42,15 @@ def crawlMainPage():
         if items and len(items)>0:
             operate = SqlOperate()
             for item in items:
-                news = NewsCriteria()
-                news.keItem = '主页'
-                news.newsName = item['title']
-                news.newsContent = item['summary']
-                news.newsLink = 'http://36ke.com/p'+str(item['id'])+'.html'
-                news.newsLable = item['extraction_tags']
-                news.publishedTime = time.strptime(item['published_at'], "%Y-%m-%dT%H:%M:%S+08:00")
-                news.newsDate = time.strptime(item['published_at'], "%Y-%m-%dT%H:%M:%S+08:00")
-                NewsService.add(news,operate.session)
+                criteria=NewsCriteria()
+                criteria.website_id = 12
+                criteria.crawl_url = website
+                criteria.news_name = item['title']
+                criteria.news_url = 'http://36ke.com/p'+str(item['id'])+'.html'
+                criteria.keywords = item['extraction_tags']
+                criteria.news_desc=item['summary']
+                criteria.publish_time = time.strptime(item['published_at'], "%Y-%m-%dT%H:%M:%S+08:00")
+                NewsService.add(criteria,operate.session)
 
 #crawlQuickNews()
 #crawlMainPage()

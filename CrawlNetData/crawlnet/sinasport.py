@@ -23,7 +23,7 @@ def crawlsport():
                         title_name=redty.text
                         link=redty.attrib['href']
                         criteria=NewsCriteria()
-                        criteria.website_id = 5
+                        criteria.website_id = 10
                         criteria.crawl_url = website
                         criteria.news_name = title_name
                         criteria.news_url = link
@@ -35,7 +35,7 @@ def crawlsport():
                         link=pa.attrib['href'].replace('//','http://')
                         newsinfo=crawlurl(link)
                         criteria=NewsCriteria()
-                        criteria.website_id = 5
+                        criteria.website_id = 10
                         criteria.crawl_url = website
                         criteria.news_name = title_name
                         criteria.news_url = link
