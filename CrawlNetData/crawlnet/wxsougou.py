@@ -1,14 +1,12 @@
-from pyutils.ContextUtil import ContextUtil
-from mysql.wxarticle import *
+from crawlnet.pyutils.ContextUtil import ContextUtil
+from crawlnet.mysql.wxarticle import *
 from lxml import etree
 import lxml
 import hashlib
-
-from weixin.wxml import Wxml
 import time
 import requests
 import re
-from mysql.SqlOperate import SqlOperate
+from crawlnet.mysql.SqlOperate import SqlOperate
 
 m=hashlib.md5()
 def crawwxsougou():

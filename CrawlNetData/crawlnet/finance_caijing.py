@@ -1,8 +1,8 @@
-from pyutils.ContextUtil import ContextUtil
+from crawlnet.pyutils.ContextUtil import ContextUtil
 from lxml import etree
-from mysql.newContent import *
+from crawlnet.mysql.newContent import *
 import requests
-from mysql.SqlOperate import SqlOperate
+from crawlnet.mysql.SqlOperate import SqlOperate
 
 
 def crawlcaijingfinance():

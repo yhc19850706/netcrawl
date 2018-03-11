@@ -1,5 +1,5 @@
 from sqlalchemy import  create_engine, exc, orm
-from mysql.models import *
+from crawlnet.mysql.models import *
 import time
 
 

@@ -1,8 +1,9 @@
-from pyutils.ContextUtil import ContextUtil
-from  mysql.jsblosModel import *
-from mysql.SqlOperate import SqlOperate
+from crawlnet.pyutils.ContextUtil import ContextUtil
+from crawlnet.mysql.jsblosModel import *
+from crawlnet.mysql.SqlOperate import SqlOperate
 from lxml import etree
-from weixin.wxml import Wxml
+from crawlnet.weixin.wxml import Wxml
+
 import time
 
 def crawljsmainpage():
