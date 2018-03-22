@@ -52,6 +52,6 @@ def crawlMainPage():
                 criteria.publish_time = time.strptime(item['published_at'], "%Y-%m-%dT%H:%M:%S+08:00")
                 NewsService.add(criteria,operate.session)
 
-#crawlQuickNews()
-#crawlMainPage()
+crawlQuickNews()
+crawlMainPage()
 print('end....')

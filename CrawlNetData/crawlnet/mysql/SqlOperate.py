@@ -7,7 +7,7 @@ import time
 class SqlOperate(object):
     def __init__(self):
         try:
-            engine = create_engine("mysql+pymysql://yhc:yhc@127.0.0.1:3306/netdata?charset=utf8", echo=False, max_overflow=5, encoding='utf-8')
+            engine = create_engine("mysql+pymysql://yhc:Yhc#2018@47.96.157.195:3306/netcrawldata?charset=utf8", echo=False, max_overflow=5, encoding='utf-8')
         except ImportError:
             raise RuntimeError
         engine.connect()

@@ -102,7 +102,7 @@ def crawlpengpaivideo():
                     criteria.news_resource=totiao_resource[0].text
                 if ytndxsm and len(ytndxsm) > 0:
                     if 'k' in ytndxsm[0].text:
-                       criteria.comment_num = int(ytndxsm[0].text.replace('k',''))*1000
+                       criteria.comment_num = float(ytndxsm[0].text.replace('k',''))*1000
                     else:
                         criteria.comment_num = int(ytndxsm[0].text)
                 NewsService.add(criteria,operate.session)
@@ -124,8 +124,10 @@ def crawlurl(url):
         return newsinfo
     return None
 
-crawlpengpaivideo()
 
+#crawlpengpai(25953)
+crawlpengpaivideo()
+#时事：25950 财经：2591 思想：2592 生活2593
 #http://www.thepaper.cn/load_chosen.jsp?nodeids=25949&topCids=1986843,1985260,1986863,1986012,&pageidx=0
 
 #crawlurl('http://www.thepaper.cn/newsDetail_forward_1996369')
