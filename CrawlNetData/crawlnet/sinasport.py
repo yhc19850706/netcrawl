@@ -1,8 +1,8 @@
-from crawlnet.pyutils.ContextUtil import ContextUtil
+from pyutils.ContextUtil import ContextUtil
 from lxml import etree
 from datetime import datetime
-from crawlnet.mysql.SqlOperate import SqlOperate
-from crawlnet.mysql.newContent import *
+from mysql.SqlOperate import SqlOperate
+from mysql.newContent import *
 import requests
 import json
 

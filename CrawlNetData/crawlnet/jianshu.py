@@ -1,8 +1,8 @@
-from crawlnet.pyutils.ContextUtil import ContextUtil
-from crawlnet.mysql.jsblosModel import *
-from crawlnet.mysql.SqlOperate import SqlOperate
+from pyutils.ContextUtil import ContextUtil
+from mysql.jsblosModel import *
+from mysql.SqlOperate import SqlOperate
 from lxml import etree
-from crawlnet.weixin.wxml import Wxml
+from weixin.wxml import Wxml
 
 import time
 

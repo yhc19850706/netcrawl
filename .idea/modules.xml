@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/CrawlNetData.iml" filepath="$PROJECT_DIR$/CrawlNetData/CrawlNetData.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/common/common.iml" filepath="$PROJECT_DIR$/CrawlNetData/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/crawlnet/crawlnet.iml" filepath="$PROJECT_DIR$/CrawlNetData/crawlnet/crawlnet.iml" />
+    </modules>
+  </component>
+</project>

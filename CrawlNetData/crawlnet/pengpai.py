@@ -1,7 +1,7 @@
-from crawlnet.pyutils.ContextUtil import ContextUtil
+from pyutils.ContextUtil import ContextUtil
 from lxml import etree
-from crawlnet.mysql.SqlOperate import SqlOperate
-from crawlnet.mysql.newContent import *
+from mysql.SqlOperate import SqlOperate
+from mysql.newContent import *
 
 #时事：25950 财经：2591 思想：2592 生活2593 默认首页
 def crawlpengpai(channel=None):

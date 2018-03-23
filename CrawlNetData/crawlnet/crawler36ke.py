@@ -1,7 +1,7 @@
-from crawlnet.pyutils.ContextUtil import ContextUtil
-from crawlnet.mysql.models import *
-from crawlnet.mysql.SqlOperate import SqlOperate
-from crawlnet.mysql.newContent import *
+from pyutils.ContextUtil import ContextUtil
+from mysql.models import *
+from mysql.SqlOperate import SqlOperate
+from mysql.newContent import *
 import re
 import json
 import time
