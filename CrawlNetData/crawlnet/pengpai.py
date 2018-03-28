@@ -7,9 +7,9 @@ from mysql.newContent import *
 def crawlpengpai(channel=None):
     operate = SqlOperate()
     website='http://www.thepaper.cn'
-    website_id = 4;
+    website_id = 4
     if channel:
-        website=website+'/channel_'+str(channel)
+        website = website+'/channel_'+str(channel)
         if channel == 2590:
             website_id = 6
         if channel == 2591:
@@ -35,8 +35,12 @@ def crawlpengpai(channel=None):
         criteria.news_name = toutiao_title[0].text
         criteria.news_url = 'http://www.thepaper.cn/'+toutiao_link
         if ytndxsm and len(ytndxsm) > 0:
-           criteria.comment_num = ytndxsm[0].text
-        criteria.news_resource=totiao_resource[0].text
+           comment = ytndxsm[0].text
+           if comment and 'k' in comment:
+               criteria.comment_num = int(comment.replace("k", ''))*1000
+           else:
+               criteria.comment_num = ytndxsm[0].text
+        criteria.news_resource = totiao_resource[0].text
         newsinfo=crawlurl(criteria.news_url)
         if newsinfo:
             if newsinfo.get('publishtime'):
@@ -60,11 +64,15 @@ def crawlpengpai(channel=None):
                    criteria.news_name = toutiao_title[0].text
                    criteria.news_url = 'http://www.thepaper.cn/'+toutiao_title[0].attrib['href']
                 if ytndxsm and len(ytndxsm) > 0:
-                   criteria.comment_num = ytndxsm[0].text
+                   comment = ytndxsm[0].text
+                   if comment and 'k' in comment:
+                      criteria.comment_num = int(comment.replace("k", ''))*1000
+                   else:
+                      criteria.comment_num = ytndxsm[0].text
                 if totiao_resource and len(totiao_resource)==1:
-                   criteria.news_resource=totiao_resource[0].text
+                   criteria.news_resource = totiao_resource[0].text
                 if toutiao_content and len(toutiao_content)==1:
-                   criteria.news_desc=toutiao_content[0].text
+                   criteria.news_desc = toutiao_content[0].text
                 newsinfo=crawlurl(criteria.news_url)
                 if newsinfo:
                     if newsinfo.get('publishtime'):
@@ -124,8 +132,11 @@ def crawlurl(url):
         return newsinfo
     return None
 
-
-#crawlpengpai(25953)
+crawlpengpai()
+crawlpengpai(25950)
+crawlpengpai(25951)
+crawlpengpai(25952)
+crawlpengpai(25953)
 crawlpengpaivideo()
 #时事：25950 财经：2591 思想：2592 生活2593
 #http://www.thepaper.cn/load_chosen.jsp?nodeids=25949&topCids=1986843,1985260,1986863,1986012,&pageidx=0

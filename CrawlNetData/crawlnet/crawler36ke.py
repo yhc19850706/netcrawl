@@ -7,9 +7,7 @@ import json
 import time
 def crawlQuickNews():
     website='https://36kr.com/api/newsflash'
-    proxy_address = {'http':'http://122.72.18.34:80'}
-    headers = {'content-type': 'application/json', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0'}
-    contextUtil = ContextUtil(proxy_address, website, headers,3000)
+    contextUtil = ContextUtil(website)
     res=contextUtil.get_crawler({'per_page': 40})
     if res:
         selector = json.loads(res.text)
@@ -17,24 +15,27 @@ def crawlQuickNews():
         if items and len(items)>0:
             operate = SqlOperate()
             for item in items:
-                resource=re.findall(r'[^（）]+', item['description'])
+                resource=re.findall(r'\（[\u4E00-\u9FA5]+\）+', item['description'])
                 criteria=NewsCriteria()
                 criteria.website_id = 11
                 criteria.crawl_url = 'https://36kr.com/api/newsflash'
                 criteria.news_name = item['title']
-                criteria.news_url = item['news_url']
+                if item['news_url']:
+                   criteria.news_url = item['news_url']
+                else:
+                    continue
                 criteria.keywords = item['column']['name']
                 criteria.news_desc=item['description']
                 criteria.publish_time = item['published_at']
-                if resource and len(resource)>1:
-                    criteria.news_resource = resource[len(resource)-1]
+                if resource and len(resource)>=1:
+                    criteria.news_resource = resource[len(resource)-1].replace("（", '').replace("）", '')
                 NewsService.add(criteria,operate.session)
 
 def crawlMainPage():
     website='https://36kr.com/api/search-column/mainsite'
     proxy_address = {'http':'http://122.72.18.34:80'}
     headers = {'content-type': 'application/json', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0'}
-    contextUtil = ContextUtil(proxy_address, website, headers,3000)
+    contextUtil = ContextUtil(website)
     res=contextUtil.get_crawler({'per_page': 40,'page': 1})
     if res:
         selector = json.loads(res.text)
