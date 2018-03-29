@@ -37,7 +37,7 @@ def crawlpengpai(channel=None):
         if ytndxsm and len(ytndxsm) > 0:
            comment = ytndxsm[0].text
            if comment and 'k' in comment:
-               criteria.comment_num = int(comment.replace("k", ''))*1000
+               criteria.comment_num = float(comment.replace("k", ''))*1000
            else:
                criteria.comment_num = ytndxsm[0].text
         criteria.news_resource = totiao_resource[0].text
@@ -66,7 +66,7 @@ def crawlpengpai(channel=None):
                 if ytndxsm and len(ytndxsm) > 0:
                    comment = ytndxsm[0].text
                    if comment and 'k' in comment:
-                      criteria.comment_num = int(comment.replace("k", ''))*1000
+                      criteria.comment_num = float(comment.replace("k", ''))*1000
                    else:
                       criteria.comment_num = ytndxsm[0].text
                 if totiao_resource and len(totiao_resource)==1:
