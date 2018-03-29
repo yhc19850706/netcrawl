@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/CrawlNetData.iml" filepath="$PROJECT_DIR$/CrawlNetData/CrawlNetData.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/common/common.iml" filepath="$PROJECT_DIR$/CrawlNetData/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CrawlNetData/crawlnet/crawlnet.iml" filepath="$PROJECT_DIR$/CrawlNetData/crawlnet/crawlnet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netcrawl.iml" filepath="$PROJECT_DIR$/netcrawl.iml" />
     </modules>
   </component>
 </project>
