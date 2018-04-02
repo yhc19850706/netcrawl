@@ -1,11 +1,6 @@
-from crawlnet.pyutils.ContextUtil import ContextUtil
-from crawlnet.mysql.jsblosModel import *
-from crawlnet.mysql.SqlOperate import SqlOperate
 from lxml import etree
-from crawlnet.weixin.wxml import Wxml
-from xml.parsers.expat import ParserCreate
+from weixin.wxml import Wxml
 import requests
-import xml.etree.cElementTree as ET
 
 def tody_weather(city_name):
     wxml=Wxml()
