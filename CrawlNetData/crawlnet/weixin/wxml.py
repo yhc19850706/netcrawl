@@ -4,7 +4,7 @@ from wxpy import *
 
 class Wxml(object):
     def __init__(self):
-        self.bot = Bot(cache_path=True, qr_path = '/home/yhc/gitrep/netcrawl/CrawlNetData/wxpy.pkl')
+        self.bot = Bot(console_qr=1,cache_path=True, qr_path = '/home/yhc/gitrep/netcrawl/CrawlNetData/wxpy.pkl')
         self.bot.enable_puid(path='/home/yhc/gitrep/netcrawl/CrawlNetData/wxpy_puid.pkl')
         # 在 Web 微信中把自己加为好友
         self.bot.self.add()
